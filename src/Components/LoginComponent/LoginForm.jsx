@@ -25,9 +25,16 @@ const handleSubmit = (e) => {
         password: credentials.password
     };
     axios.post(`${dotenv.API_URL}/auth/jwt/create/`,userCredentials).then((response)=>{
-        console.log(response.status, response.data)
-        console.log(dotenv.API_URL)
-    });
+        const token = response.data.access
+        document.cookie = `token=${token}; path=/; max-age=3600;`;
+        console.log(response.status, response.data.access)
+    }).catch((error)=>{
+        if (error.response && error.response.status === 401) {
+            window.alert('Wrong Credentials');
+        } else {
+            console.error('An error occurred:', error);
+        }
+    })
 }
 return (
     <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-sm">
