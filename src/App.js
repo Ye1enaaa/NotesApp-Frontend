@@ -3,12 +3,14 @@ import './App.css';
 //import Navbar from './Components/Navbar/navbar';
 import AdminPanel from './Pages/AdminPage/AdminPanel';
 import NotesPanel from './Pages/NotesPanel';
+import LoginPage from './Pages/LoginPage';
 function App() {
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<NotesPanel/>}/>
+          <Route index element={<LoginPage/>}/>
+          {/* <Route path='/' element={<NotesPanel/>}/> */}
           <Route path='/admin/panel' element={<AdminPanel/>}/>
         </Routes>
       </BrowserRouter>
