@@ -1,7 +1,47 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import dotenv from 'react-dotenv';
+import getCookie from '../../Services/GetCookie';
 
 const AddNoteModal = ({onClose}) => {
 
+  // useEffect(() => {
+  //   const tokenValue = () => {
+  //     const token = getCookie('token')
+  //     return token
+  //   }
+  // })
+  const [notes, setNotes] = useState({
+    title: "",
+    body: "",
+  })
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+      setNotes({
+        ...notes,
+        [e.target.name]: value
+      });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const token = getCookie('token')
+    const userNotes = {
+      title: notes.title,
+      body: notes.body
+    };
+
+    axios.post(`${dotenv.API_URL}/post/add-posts`, userNotes, {
+      headers:{
+        'Authorization': `Bearer ${token}`
+      }
+    }).then((response) => {
+      if(response.status === 201 || response.status === 200){
+        console.log(response.data, 'Success')
+      }
+    });
+  }
   return (
     <div aria-hidden="true" className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
             <div className="relative p-4 w-full max-w-md max-h-full">
@@ -23,12 +63,15 @@ const AddNoteModal = ({onClose}) => {
                     <span className="sr-only">Close modal</span>
                   </button>
                 </div>
-                <form className="p-4 md:p-5">
+                <form className="p-4 md:p-5" onSubmit={handleSubmit}>
                   <div className="grid gap-4 mb-4 grid-cols-2">
                     <div className="col-span-2">
                       <label htmlFor="title" className="block mb-2 text-sm font-medium 
                         text-gray-900 dark:text-white">Title</label>
-                      <input type="text" name="title" id="title" className="bg-gray-50 border 
+                      <input type="text" name="title" id="title" 
+                        value={notes.title}
+                        onChange={handleChange}
+                        className="bg-gray-50 border 
                         border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 
                         focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 
                         dark:border-gray-500 dark:placeholder-gray-400 
@@ -39,7 +82,11 @@ const AddNoteModal = ({onClose}) => {
                     <div className="col-span-2">
                       <label htmlFor="body" className="block mb-2 text-sm font-medium 
                         text-gray-900 dark:text-white">Body</label>
-                      <textarea id="body" rows="4" className="block p-2.5 w-full text-sm 
+                      <textarea id="body" rows="4" 
+                        name='body'
+                        value={notes.body}
+                        onChange={handleChange} 
+                        className="block p-2.5 w-full text-sm 
                         text-gray-900 bg-gray-50 rounded-lg border border-gray-300 
                         focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 
                         dark:border-gray-500 dark:placeholder-gray-400 dark:text-white 
