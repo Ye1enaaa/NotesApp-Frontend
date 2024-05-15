@@ -26,8 +26,11 @@ const handleSubmit = (e) => {
     };
     axios.post(`${dotenv.API_URL}/auth/jwt/create/`,userCredentials).then((response)=>{
         const token = response.data.access
-        document.cookie = `token=${token}; path=/; max-age=3600;`;
-        console.log(response.status, response.data.access)
+        if(response.status === 200){
+          document.cookie = `token=${token}; path=/; max-age=3600;`;
+          console.log(response.status, response.data.access)
+          window.alert('Opening Notes')
+        }
     }).catch((error)=>{
         if (error.response && error.response.status === 401) {
             window.alert('Wrong Credentials');
