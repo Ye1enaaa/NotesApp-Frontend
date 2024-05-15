@@ -1,6 +1,5 @@
 import axios from 'axios'
 import React, {useState} from 'react'
-import baseUrl from '../../endpoint';
 import dotenv from 'react-dotenv';
 
 function LoginForm() {
