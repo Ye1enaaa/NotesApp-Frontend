@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
-import NavBar from '../Components/NotesComponent/NavBar';
 import dotenv from 'react-dotenv';
 import getCookie from '../Services/GetCookie';
 import { NoteCard } from '../Components/NotesComponent/NoteCard';
 import AddNoteModal from '../Components/NotesComponent/AddNoteModal';
+import { GetTimeGreetings } from '../Services/GetTimeGreetings';
 
 const NotesPanel = () => {
   const [notes, setNotes] = useState([])
@@ -18,6 +18,8 @@ const NotesPanel = () => {
   const closeAddNoteHandler = () => {
     setIsModalOpen(false)
   }
+
+  const getGreeting = GetTimeGreetings();
 
   useEffect(() =>{
     const token = getCookie('token')
@@ -46,7 +48,7 @@ const NotesPanel = () => {
       <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
       <a class="flex items-center space-x-3 rtl:space-x-reverse">
           <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" />
-          <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Notes</span>
+          <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">{getGreeting} Erickson</span>
       </a>
       <div class="flex md:order-2 space-x-5 rtl:space-x-reverse">
           <button type="button" onClick={addNoteHandler} class="
@@ -55,7 +57,6 @@ const NotesPanel = () => {
             dark:bg-blue-600 dark:hover:bg-blue-700
             dark:focus:ring-blue-800">Add Note
           </button>
-
             {isModalOpen && (
                 <AddNoteModal onClose={closeAddNoteHandler}/>
             )}
