@@ -5,12 +5,6 @@ import getCookie from '../../Services/GetCookie';
 
 const AddNoteModal = ({onClose}) => {
 
-  // useEffect(() => {
-  //   const tokenValue = () => {
-  //     const token = getCookie('token')
-  //     return token
-  //   }
-  // })
   const [notes, setNotes] = useState({
     title: "",
     body: "",
