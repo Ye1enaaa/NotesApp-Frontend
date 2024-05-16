@@ -5,11 +5,18 @@ import getCookie from '../Services/GetCookie';
 import { NoteCard } from '../Components/NotesComponent/NoteCard';
 import AddNoteModal from '../Components/NotesComponent/AddNoteModal';
 import { GetTimeGreetings } from '../Services/GetTimeGreetings';
+import UserDetailsComponent from '../Components/AvatarComponent/UserDetailsComponent';
 
 const NotesPanel = () => {
   const [notes, setNotes] = useState([])
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isAvatarDropDownOpen, setIsAvatarDropDownOpen] = useState(false)
   
+  const openAvatarButtonHandler = () => {
+    console.log('OPEN')
+    setIsAvatarDropDownOpen(prevState => !prevState)
+  }
+
   const addNoteHandler = () => {
     setIsModalOpen(true)
     console.log('Hiii')
@@ -60,7 +67,14 @@ const NotesPanel = () => {
             {isModalOpen && (
                 <AddNoteModal onClose={closeAddNoteHandler}/>
             )}
-        <img class="w-10 h-10 rounded-full" src="https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg" alt="Rounded avatar" />
+
+            {isAvatarDropDownOpen && (
+              <UserDetailsComponent/>
+            )}
+        <button type='button' onClick={openAvatarButtonHandler}>
+          <img className="w-10 h-10 rounded-full" src="https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg" 
+            alt="Rounded avatar"/>
+        </button>
       </div>
       </div>
     </nav>
