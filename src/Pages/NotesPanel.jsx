@@ -87,7 +87,7 @@ const NotesPanel = () => {
     <div className='p-6 bg-gray-100 rounded-lg mt-2'>
       <div className='grid grid-cols-3 gap-4'>
         {notes.map(note => (
-          <NoteCard key={note.id} title={note.title} body={note.body} bgColor={getRandomColor()}/>
+          <NoteCard key={note.id} title={note.title} body={note.body} date_created={note.date_created} bgColor={getRandomColor()}/>
         ))}
       </div>
     </div>
