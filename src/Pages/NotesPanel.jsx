@@ -28,6 +28,11 @@ const NotesPanel = () => {
 
   const getGreeting = GetTimeGreetings();
 
+  const getRandomColor = () => {
+    const colors = ['bg-yellow-200', 'bg-blue-200', 'bg-green-200', 'bg-red-200', 'bg-purple-200'];
+    return colors[Math.floor(Math.random() * colors.length)];
+  };
+
   useEffect(() =>{
     const token = getCookie('token')
     const fetchData = async() => {
@@ -82,7 +87,7 @@ const NotesPanel = () => {
     <div className='p-6 bg-gray-100 rounded-lg mt-2'>
       <div className='grid grid-cols-3 gap-4'>
         {notes.map(note => (
-          <NoteCard key={note.id} title={note.title} body={note.body}/>
+          <NoteCard key={note.id} title={note.title} body={note.body} bgColor={getRandomColor()}/>
         ))}
       </div>
     </div>
