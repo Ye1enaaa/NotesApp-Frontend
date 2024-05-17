@@ -4,7 +4,7 @@ export class NoteCard extends Component{
   render(){
     return <div key={this.props.id} className={`mb-4 p-4 ${this.props.bgColor} shadow-lg h-[220px] rounded-2xl`}>
     <div className="flex justify-between items-center mb-2">
-      <span className="text-sm text-gray-600">12/12/2021</span>
+      <span className="text-sm text-gray-600">{this.props.date_created}</span>
       <button className="text-gray-600 hover:text-gray-800">
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
