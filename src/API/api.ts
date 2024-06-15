@@ -1,5 +1,6 @@
 import axios from "axios";
 import dotenv from 'react-dotenv';
+import { Token, UserLoginCredentials, UserNotes } from "./interface.ts";
 
 
 export async function authenticateUser(userLoginCredentials:UserLoginCredentials):Promise<void> {
@@ -18,14 +19,21 @@ export async function authenticateUser(userLoginCredentials:UserLoginCredentials
     }
 }
 
-export async function addUserNotes(userNotes: UserNotes, token: Token):Promise<void> {
-    axios.post(`${dotenv.API_URL}/post/add-posts`, userNotes, {
-        headers:{
-          'Authorization': `Bearer ${token}`
-        }
-      }).then((response) => {
-        if(response.status === 201 || response.status === 200){
-          console.log(response.data, 'Success')
-        }
-      });
+export async function addUserNotes(userNotes: UserNotes, token: Token):Promise<boolean> {
+    try {
+        axios.post(`${dotenv.API_URL}/post/add-posts`, userNotes, {
+            headers:{
+              'Authorization': `Bearer ${token}`
+            }
+          }).then((response) => {
+            if(response.status === 201 || response.status === 200){
+              console.log(response.data, 'Success')
+              return true
+            }
+          });
+    } catch (error) {
+        console.error('Error adding note:', error);
+        return false; 
+    }
+    return false;
 }
