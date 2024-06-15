@@ -1,11 +1,11 @@
-interface UserLoginCredentials {
+export interface UserLoginCredentials {
     email: string;
     password: string;
 }
 
-type Token = string;
+export type Token = string;
 
-interface UserNotes {
+export interface UserNotes {
     title: string;
     body: string;
     is_public: boolean;
